@@ -1,31 +1,12 @@
-import sys
-#import httplib2
 import urllib3
-import psycopg2
-import psycopg2.extras
 import lxml.etree
 import time
-import datetime
-import threading
-#import psycopg2_bulk_insert
-#import psycopg2_etl_utils
-#import nike_etl
 import uuid
-import decimal
-import pickle
-import ConfigParser
 import re
-import json
-import random
-import os
-import codecs
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.action_chains import ActionChains
-import selenium
-
-
 
 feed_code=-99
 bookmaker_code=-99
@@ -129,15 +110,15 @@ def get_events(httpcon,main_url,city):
         if len(stars_xpath) > 0:
             stars = stars_xpath[0].encode('cp1250')
         else:
-            stars = 'bez hvìzdièek'
+            stars = 'bez hvÃ¬zdiÃ¨ek'
         if len(name_xpath) > 0:
             hotel_name = name_xpath[0].encode('utf-8')
         else:
-            hotel_name = 'Bez názvu'
+            hotel_name = 'Bez nÃ¡zvu'
         if len(rating_xpath) > 0:
             rating = rating_xpath[0].encode('cp1250')
         else:
-            rating = 'Bez hodnocení'
+            rating = 'Bez hodnocenÃ­'
         if len(reviews_xpath) > 0:
             reviews = int(reviews_xpath[0].encode('utf-8').replace('\xc2\xa0','').strip(' '))
         else:
@@ -154,15 +135,15 @@ def get_events(httpcon,main_url,city):
 ##        print link_xpath
 ##        sys.exit(0)
 ##        link = main_url + link_xpath[0]
-        if stars == '(3 hvìzdièky)':
+        if stars == '(3 hvÃ¬zdiÃ¨ky)':
             hotels_list_three = str(price) + ';' + str(was_price) + ';' + hotel_name + ';' + stars + ';' + rating + ';' + str(reviews) + ';' + str(no_of_nights)
             hotels_dict_three[i] = hotels_list_three
             price_dict_three[i] = price
-        elif stars == '(4 hvìzdièky)':
+        elif stars == '(4 hvÃ¬zdiÃ¨ky)':
             hotels_list_four = str(price) + ';' + str(was_price) + ';' + hotel_name + ';' + stars + ';' + rating + ';' + str(reviews) + ';' + str(no_of_nights)
             hotels_dict_four[i] = hotels_list_four
             price_dict_four[i] = price
-        elif stars == '(5 hvìzdièek)':
+        elif stars == '(5 hvÃ¬zdiÃ¨ek)':
             hotels_list_five = str(price) + ';' + str(was_price) + ';' + hotel_name + ';' + stars + ';' + rating + ';' + str(reviews) + ';' + str(no_of_nights)
             hotels_dict_five[i] = hotels_list_five
             price_dict_five[i] = price
@@ -184,13 +165,13 @@ def get_events(httpcon,main_url,city):
             link_xpath = browser.find_element_by_xpath('//div[@class="hc_m_outer"]/div[@class="hc_m_content"]/div[@class="hc_hotel hc_sri_result"]/h3/a[@title="%s"]' % output_three[2]).get_attribute("href")
 ##            print link_xpath
             
-            print 'Cena: ' + output_three[0] + ' Kè'
-            print 'Pùvodni cena: ' + output_three[1] + ' Kè'
-            print 'Poèet nocí: ' + output_three[6]
-            print 'Jméno hotelu: ' + output_three[2]
-            print 'Poèet hvìzdièek: ' + output_three[3]
-            print 'Hodnocení: ' + output_three[4]
-            print 'Poèet hodnocení: ' + output_three[5]
+            print 'Cena: ' + output_three[0] + ' KÃ¨'
+            print 'PÃ¹vodni cena: ' + output_three[1] + ' KÃ¨'
+            print 'PoÃ¨et nocÃ­: ' + output_three[6]
+            print 'JmÃ©no hotelu: ' + output_three[2]
+            print 'PoÃ¨et hvÃ¬zdiÃ¨ek: ' + output_three[3]
+            print 'HodnocenÃ­: ' + output_three[4]
+            print 'PoÃ¨et hodnocenÃ­: ' + output_three[5]
             print 'Odkaz na hotel: ' + link_xpath
             print '------------------------------------------------------------------------------------------------------------------------'
         print '********************************************************************************************************************************************'
@@ -203,13 +184,13 @@ def get_events(httpcon,main_url,city):
             mouse.move_to_element(a_element).context_click().perform()
             link_xpath = browser.find_element_by_xpath('//div[@class="hc_m_outer"]/div[@class="hc_m_content"]/div[@class="hc_hotel hc_sri_result"]/h3/a[@title="%s"]' % output_four[2]).get_attribute("href")
 
-            print 'Cena: ' + output_four[0] + ' Kè'
-            print 'Pùvodni cena: ' + output_four[1] + ' Kè'
-            print 'Poèet nocí: ' + output_four[6]
-            print 'Jméno hotelu: ' + output_four[2]
-            print 'Poèet hvìzdièek: ' + output_four[3]
-            print 'Hodnocení: ' + output_four[4]
-            print 'Poèet hodnocení: ' + output_four[5]
+            print 'Cena: ' + output_four[0] + ' KÃ¨'
+            print 'PÃ¹vodni cena: ' + output_four[1] + ' KÃ¨'
+            print 'PoÃ¨et nocÃ­: ' + output_four[6]
+            print 'JmÃ©no hotelu: ' + output_four[2]
+            print 'PoÃ¨et hvÃ¬zdiÃ¨ek: ' + output_four[3]
+            print 'HodnocenÃ­: ' + output_four[4]
+            print 'PoÃ¨et hodnocenÃ­: ' + output_four[5]
             print 'Odkaz na hotel: ' + link_xpath
             print '----------------------------------------------------------------------------------------------------------------------'
         print '********************************************************************************************************************************************'
@@ -221,13 +202,13 @@ def get_events(httpcon,main_url,city):
             a_element = browser.find_element_by_xpath('//div[@class="hc_m_outer"]/div[@class="hc_m_content"]/div[@class="hc_hotel hc_sri_result"]/h3/a[@title="%s"]' % output_five[2])
             mouse.move_to_element(a_element).context_click().perform()
             link_xpath = browser.find_element_by_xpath('//div[@class="hc_m_outer"]/div[@class="hc_m_content"]/div[@class="hc_hotel hc_sri_result"]/h3/a[@title="%s"]' % output_five[2]).get_attribute("href")
-            print 'Cena: ' + output_five[0] + ' Kè'
-            print 'Pùvodni cena: ' + output_five[1] + ' Kè'
-            print 'Poèet nocí: ' + output_three[6]
-            print 'Jméno hotelu: ' + output_five[2]
-            print 'Poèet hvìzdièek: ' + output_five[3]
-            print 'Hodnocení: ' + output_five[4]
-            print 'Poèet hodnocení: ' + output_five[5]
+            print 'Cena: ' + output_five[0] + ' KÃ¨'
+            print 'PÃ¹vodni cena: ' + output_five[1] + ' KÃ¨'
+            print 'PoÃ¨et nocÃ­: ' + output_three[6]
+            print 'JmÃ©no hotelu: ' + output_five[2]
+            print 'PoÃ¨et hvÃ¬zdiÃ¨ek: ' + output_five[3]
+            print 'HodnocenÃ­: ' + output_five[4]
+            print 'PoÃ¨et hodnocenÃ­: ' + output_five[5]
             print 'Odkaz na hotel: ' + link_xpath
             print '-----------------------------------------------------------------------------------------------------------------------'
         print '********************************************************************************************************************************************'
@@ -241,7 +222,7 @@ def get_events(httpcon,main_url,city):
 ##radit podle ceny za noc a k tomu mit prirazene informace o nazvu hotelu, poctu hvezdicek, hodnoceni hotelu a poctu hodnoceni hotelu
 ##mozna udelat tri ruzne sekce: serazene 3* hotely podle ceny za noc a to stejne zvlast pro 4* a 5* tzn. tri oddelene vystupy
 ## 3* hotely:
-## Jméno: Astory
+## JmÃ©no: Astory
 ## cena za noc: 1500
 ## hodnoceni: 4.0
 ## pocet hodnoceni: 2532
